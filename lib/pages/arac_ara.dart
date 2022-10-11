@@ -7,11 +7,35 @@ class AracAraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text("ARAÇ ARA"),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 30.0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: const [colorSecondary, colorSecondaryLight],
+              // colors: [colorSecondary, colorSecondaryLight],
+            ),
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(30.0),
+              bottomRight: const Radius.circular(30.0),
+            ),
+          ),
+        ),
+      ),
       body: Container(
-        color: colorSecondary,
-        // decoration: BoxDecoration(
+        // color: Colors.white10, // colorSecondary,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter, // .topRight,
+            end: Alignment.bottomCenter, //.bottomLeft,
+            colors: colorPageBgr,
+          ),
+        ),
 
-        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables

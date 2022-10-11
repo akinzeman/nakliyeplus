@@ -2,6 +2,9 @@
 
 /* import global variables from variables.dart */
 import 'variables.dart';
+
+import 'package:provider/provider.dart';
+
 /* custom pages */
 import 'pages/anasayfa.dart';
 import 'pages/eslesme.dart';
@@ -13,49 +16,75 @@ import 'pages/fihrist.dart';
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 // import 'package:animations/animations.dart';
 // import 'package:flutter/cupertino.dart'; // importa gerek yok denildi
 
-// import 'package:flutter/scheduler.dart' show timeDilation;
+/* debug amaçlı paketler */
+// import 'package:flutter/scheduler.dart'; // timeDilation=5;// animasyon hızı
+// import 'package:flutter/rendering.dart'; // debugPaintSizeEnabled = true;
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
+
+class AppController extends ChangeNotifier {
+  int activeConvexTab = 2;
+  String appTitle = "NAKLİYE PLUS";
+
+  void changeActiveConvexTab(int i) {
+    activeConvexTab = i;
+    notifyListeners();
+  }
+
+  void setAppTitle(String str) {
+    appTitle = str;
+    notifyListeners();
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    /* https://api.flutter.dev/flutter/scheduler/timeDilation.html
-    var timeDilation = 5.0; // tip: herşeyi 5 kat yavaş gösterir !!
-    /// calismadı sonra bak
-    */
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false, //tip:
-      home: MyHomePage(title: 'Flutter Convex Bottom Bar'),
-    );
+    // timeDilation=5;// animasyon hızı // import 'package:flutter/scheduler.dart';
+// debugPaintSizeEnabled = true; // import 'package:flutter/rendering.dart';
+    return ChangeNotifierProvider<AppController>(
+        create: (_) => AppController(),
+        child: MaterialApp(
+            home: MyHomePage(
+              title: "NAKLİYE PLUS",
+            ),
+            debugShowCheckedModeBanner: false));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  // ignore: library_private_types_in_public_api
-  _MyHomePageState createState() => _MyHomePageState();
-}
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-class _MyHomePageState extends State<MyHomePage> {
-  int selectedPage = 2;
+//   @override
+//   Widget build(BuildContext context) {
+// // timeDilation=5;// animasyon hızı // import 'package:flutter/scheduler.dart';
+// // debugPaintSizeEnabled = true; // import 'package:flutter/rendering.dart';
+
+//     return MyHomePage(title: "NAKLİYE PLUS");
+//   }
+// }
+
+// ignore: must_be_immutable
+class MyHomePage extends StatelessWidget {
+  MyHomePage({Key? key, required String title}) : super(key: key);
+
   final sayfalar = [
     EslesmePage(),
     IlanlarPage(),
     AnaSayfaPage(),
     SohbetPage(),
-    FihristPage(),
+    FihristPage()
     // ProfilePage()
   ];
+
+/* unutma: Bunu widget build hemen altına koymayı unutma !! */
 
   // const colorYukAra = Color.fromRGBO(255, 166, 48, 1);
 
@@ -63,18 +92,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: true, // body'app barın arkasına kaysın
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: const <Widget>[
               Center(
-                  child: Text("NAKLİYE PLUS",
-                      style: TextStyle(
-                          color: Color.fromRGBO(255, 255, 255, .9),
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold))),
+                child: Text("NAKLİYE PLUS",
+                    style: TextStyle(
+                        color: Color.fromRGBO(255, 255, 255, .9),
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold)),
+              ),
             ],
           ),
           centerTitle: true,
@@ -159,7 +189,8 @@ class _MyHomePageState extends State<MyHomePage> {
         //scaffold background
         // backgroundColor: colorScaffold,
 
-        body: sayfalar[selectedPage],
+        body: sayfalar[Provider.of<AppController>(context).activeConvexTab],
+
         bottomNavigationBar: ConvexAppBar(
             items: const [
               // TabItem(icon: CupertinoIcons.cube_box, title: 'Ana Sayfa'),
@@ -176,10 +207,13 @@ class _MyHomePageState extends State<MyHomePage> {
             // activeColor: Colors.orange,
             // color: Colors.white, //passive items color
             onTap: (int i) => {
-                  // print('click index=$i'),
-                  setState(() {
-                    selectedPage = i;
-                  })
+                  print('click index=$i'),
+                  Provider.of<AppController>(context, listen: false)
+                      .changeActiveConvexTab(i)
+                  // setState(() {
+                  //   //todo: buraya getx yap
+                  //   selectedPage = i;
+                  // })
                 }),
       ),
     );
