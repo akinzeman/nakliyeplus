@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+// var appTitle = "NAKLİYE PLUS";
 const colorPrimary = Color(0xFFFFA726);
 const colorPrimaryLight = Color(0xFFFFCC80);
 const colorSecondary = Colors.blue;

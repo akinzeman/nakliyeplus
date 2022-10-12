@@ -25,7 +25,16 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 // import 'package:flutter/scheduler.dart'; // timeDilation=5;// animasyon hızı
 // import 'package:flutter/rendering.dart'; // debugPaintSizeEnabled = true;
 
-void main() => runApp(MyApp());
+// void main() => runApp(Provider<AppController>(
+//     // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+//     create: (BuildContext, context) => AppController(), child: MyApp()));
+
+void main() {
+  runApp(ChangeNotifierProvider<AppController>(
+    create: (context) => AppController(),
+    child: MyApp(),
+  ));
+}
 
 class AppController extends ChangeNotifier {
   int activeConvexTab = 2;
@@ -49,173 +58,186 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // timeDilation=5;// animasyon hızı // import 'package:flutter/scheduler.dart';
 // debugPaintSizeEnabled = true; // import 'package:flutter/rendering.dart';
-    return ChangeNotifierProvider<AppController>(
-        create: (_) => AppController(),
-        child: MaterialApp(
-            home: MyHomePage(
-              title: "NAKLİYE PLUS",
-            ),
-            debugShowCheckedModeBanner: false));
-  }
-}
+    final sayfalar = [
+      EslesmePage(),
+      IlanlarPage(),
+      AnaSayfaPage(),
+      SohbetPage(),
+      FihristPage()
+      // ProfilePage()
+    ];
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-// // timeDilation=5;// animasyon hızı // import 'package:flutter/scheduler.dart';
-// // debugPaintSizeEnabled = true; // import 'package:flutter/rendering.dart';
-
-//     return MyHomePage(title: "NAKLİYE PLUS");
-//   }
-// }
-
-// ignore: must_be_immutable
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key, required String title}) : super(key: key);
-
-  final sayfalar = [
-    EslesmePage(),
-    IlanlarPage(),
-    AnaSayfaPage(),
-    SohbetPage(),
-    FihristPage()
-    // ProfilePage()
-  ];
-
-/* unutma: Bunu widget build hemen altına koymayı unutma !! */
-
-  // const colorYukAra = Color.fromRGBO(255, 166, 48, 1);
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true, // body'app barın arkasına kaysın
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Center(
-                child: Text("NAKLİYE PLUS",
-                    style: TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, .9),
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.bold)),
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SafeArea(
+          child: Scaffold(
+            extendBodyBehindAppBar: true, // body'app barın arkasına kaysın
+            appBar: AppBar(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Center(
+                    // child: StyledAppTitle(),
+                    child: StyledAppTitle(),
+                  ),
+                ],
               ),
-            ],
-          ),
-          centerTitle: true,
-          elevation: 30.0,
-          backgroundColor: Colors.transparent, // colorSecondary, //.white70,
-          // foregroundColor: Colors.black87,
+              centerTitle: true,
+              elevation: 30.0,
+              backgroundColor:
+                  Colors.transparent, // colorSecondary, //.white70,
+              // foregroundColor: Colors.black87,
 
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color.fromARGB(255, 250, 107, 25), colorPrimary],
-                // colors: [colorSecondary, colorSecondaryLight],
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 250, 107, 25), colorPrimary],
+                    // colors: [colorSecondary, colorSecondaryLight],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(40.0),
+                    bottomLeft: const Radius.circular(40.0),
+                    bottomRight: const Radius.circular(40.0),
+                  ),
+                ),
               ),
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(40.0),
-                bottomLeft: const Radius.circular(40.0),
-                bottomRight: const Radius.circular(40.0),
+
+              /* appbarın köşelerini yuvarlamak istersen, yukardaki flexible space varken calısmaz! */
+              // shape: RoundedRectangleBorder(
+              //   ////tüm köşeler
+              //   // borderRadius: BorderRadius.circular(30),
+
+              //   /* sadece alttaki köşeler içinse */
+              //   borderRadius: BorderRadius.vertical(
+              //     bottom: Radius.circular(30),
+              //   ),
+              // ),
+
+              // appbarın soldaki ilk menu iconu, profil photo
+              leading: Container(
+                // padding: const EdgeInsets.all(8), // +Border width, dışa dogru
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 1.0,
+                  ),
+                  shape: BoxShape.circle,
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.black.withOpacity(0.5),
+                  //     spreadRadius: 10,
+                  //     blurRadius: 20,
+                  //     offset: Offset(0, 0), // changes position of shadow
+                  //   ),
+                  // ],
+                ),
+                child: ClipOval(
+                  child: SizedBox.fromSize(
+                    size: const Size.fromRadius(30), // Image radius
+                    child: Image.asset(
+                      "assets/images/profile.jpg",
+                      // height: 32.0,
+                      // width: 32.0,
+                    ),
+                    // Image.network('imageUrl', fit: BoxFit.cover),
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          /* appbarın köşelerini yuvarlamak istersen, yukardaki flexible space varken calısmaz! */
-          // shape: RoundedRectangleBorder(
-          //   ////tüm köşeler
-          //   // borderRadius: BorderRadius.circular(30),
-
-          //   /* sadece alttaki köşeler içinse */
-          //   borderRadius: BorderRadius.vertical(
-          //     bottom: Radius.circular(30),
-          //   ),
-          // ),
-
-          // appbarın soldaki ilk menu iconu, profil photo
-          leading: Container(
-            // padding: const EdgeInsets.all(8), // +Border width, dışa dogru
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              border: Border.all(
-                color: Colors.white,
-                width: 1.0,
-              ),
-              shape: BoxShape.circle,
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Colors.black.withOpacity(0.5),
-              //     spreadRadius: 10,
-              //     blurRadius: 20,
-              //     offset: Offset(0, 0), // changes position of shadow
+              // // appbarın en sağında yer alan demek
+              // actions: [
+              //   IconButton(
+              //     onPressed: () {},
+              //     icon: Icon(
+              //       Icons.call,
+              //       // color: Colors.black87,
+              //       // size: 52.0,
+              //     ),
+              //   ),
+              //   IconButton(
+              //     onPressed: () {},
+              //     icon: Icon(Icons.more_vert),
               //   ),
               // ],
             ),
-            child: ClipOval(
-              child: SizedBox.fromSize(
-                size: const Size.fromRadius(30), // Image radius
-                child: Image.asset(
-                  "assets/images/profile.jpg",
-                  // height: 32.0,
-                  // width: 32.0,
-                ),
-                // Image.network('imageUrl', fit: BoxFit.cover),
-              ),
-            ),
+
+            //scaffold background
+            // backgroundColor: colorScaffold,
+
+            body: sayfalar[Provider.of<AppController>(context).activeConvexTab],
+
+            /* stateless olmasına ragmen her tab degistiginde neden buraya geliyor */
+            bottomNavigationBar: ConvexAppBar(
+                items: const [
+                  // TabItem(icon: CupertinoIcons.cube_box, title: 'Ana Sayfa'),
+                  TabItem(icon: Icons.find_replace_outlined, title: 'Eşleşme'),
+                  TabItem(icon: Icons.map, title: 'İlanlar'),
+                  TabItem(icon: Icons.grid_view_outlined, title: 'Ana Sayfa'),
+                  TabItem(icon: Icons.chat_bubble_outline, title: 'Sohbet'),
+                  // TabItem(icon: Icons.message, title: 'Sohbet'),
+                  TabItem(icon: Icons.people, title: 'Fihrist'),
+                ],
+                // style: TabStyle.fixed, // burada animasyon yok
+                // cornerRadius: 20,
+                initialActiveIndex: 2,
+                // activeColor: Colors.orange,
+                // color: Colors.white, //passive items color
+                onTap: (int i) => {
+                      print('click index=$i'),
+
+                      context.read<AppController>().changeActiveConvexTab(i),
+                      //yukardaki ile bu aynı...->  Provider.of<AppController>(context, listen: false).changeActiveConvexTab(i),
+
+                      // setState(() {
+                      //   //todo: buraya getx yap
+                      //   selectedPage = i;
+                      // })
+                    }),
           ),
+        ));
+  }
+}
 
-          // // appbarın en sağında yer alan demek
-          // actions: [
-          //   IconButton(
-          //     onPressed: () {},
-          //     icon: Icon(
-          //       Icons.call,
-          //       // color: Colors.black87,
-          //       // size: 52.0,
-          //     ),
-          //   ),
-          //   IconButton(
-          //     onPressed: () {},
-          //     icon: Icon(Icons.more_vert),
-          //   ),
-          // ],
-        ),
+//// https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple
+// return Consumer<AppController>(
+//   builder: (context, cart, child) {
+//     return Text('Total price: ${cart.totalPrice}');
+//   },
+// );
+/* // context.watch ile  */
+// class StyledAppTitle extends StatelessWidget {
+//   const StyledAppTitle({super.key});
+//   // final ttt = Provider.of<AppController>(context, listen: false).appTitle;
+//   // final xxx = (context.watch<AppController>().appTitle).toString()
+//   @override
+//   Widget build(BuildContext context) {
+//     // print(context.watch<AppController>().appTitle);
+//     // return Text(appTitle,
+//     return Text(context.watch<AppController>().appTitle,
+//         style: TextStyle(
+//             color: Color.fromRGBO(255, 255, 255, .9),
+//             fontSize: 22.0,
+//             fontWeight: FontWeight.bold));
+//   }
+// }
 
-        //scaffold background
-        // backgroundColor: colorScaffold,
-
-        body: sayfalar[Provider.of<AppController>(context).activeConvexTab],
-
-        bottomNavigationBar: ConvexAppBar(
-            items: const [
-              // TabItem(icon: CupertinoIcons.cube_box, title: 'Ana Sayfa'),
-              TabItem(icon: Icons.find_replace_outlined, title: 'Eşleşme'),
-              TabItem(icon: Icons.map, title: 'İlanlar'),
-              TabItem(icon: Icons.grid_view_outlined, title: 'Ana Sayfa'),
-              TabItem(icon: Icons.chat_bubble_outline, title: 'Sohbet'),
-              // TabItem(icon: Icons.message, title: 'Sohbet'),
-              TabItem(icon: Icons.people, title: 'Fihrist'),
-            ],
-            // style: TabStyle.fixed, // burada animasyon yok
-            // cornerRadius: 20,
-            initialActiveIndex: 2,
-            // activeColor: Colors.orange,
-            // color: Colors.white, //passive items color
-            onTap: (int i) => {
-                  print('click index=$i'),
-                  Provider.of<AppController>(context, listen: false)
-                      .changeActiveConvexTab(i)
-                  // setState(() {
-                  //   //todo: buraya getx yap
-                  //   selectedPage = i;
-                  // })
-                }),
-      ),
-    );
+/* consumer ile */
+class StyledAppTitle extends StatelessWidget {
+  const StyledAppTitle({super.key});
+  // final ttt = Provider.of<AppController>(context, listen: false).appTitle;
+  // final xxx = (context.watch<AppController>().appTitle).toString()
+  @override
+  Widget build(BuildContext context) {
+    // print(context.watch<AppController>().appTitle);
+    // return Text(appTitle,
+    return Consumer<AppController>(builder: (context, provider, child) {
+      return Text(provider.appTitle.toString(),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 255, 255, .9),
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold));
+    });
   }
 }
