@@ -233,7 +233,7 @@ class StyledAppTitle extends StatelessWidget {
     // print(context.watch<AppController>().appTitle);
     // return Text(appTitle,
     return Consumer<AppController>(builder: (context, provider, child) {
-      return Text(provider.appTitle.toString(),
+      return Text(provider.activeConvexTab.toString(),
           style: TextStyle(
               color: Color.fromRGBO(255, 255, 255, .9),
               fontSize: 22.0,
