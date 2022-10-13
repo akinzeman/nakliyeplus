@@ -66,6 +66,13 @@ class MyApp extends StatelessWidget {
       FihristPage()
       // ProfilePage()
     ];
+    final sayfaBasliklari = [
+      "EŞLEŞME",
+      "İLANLAR",
+      "NAKLİYE PLUS",
+      "SOHBET",
+      "FİHRİST"
+    ];
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -187,7 +194,13 @@ class MyApp extends StatelessWidget {
                 onTap: (int i) => {
                       print('click index=$i'),
 
+                      /* todo:sor: burası amator */
+                      context
+                          .read<AppController>()
+                          .setAppTitle(sayfaBasliklari[i]),
+
                       context.read<AppController>().changeActiveConvexTab(i),
+
                       //yukardaki ile bu aynı...->  Provider.of<AppController>(context, listen: false).changeActiveConvexTab(i),
 
                       // setState(() {
@@ -233,7 +246,8 @@ class StyledAppTitle extends StatelessWidget {
     // print(context.watch<AppController>().appTitle);
     // return Text(appTitle,
     return Consumer<AppController>(builder: (context, provider, child) {
-      return Text(provider.appTitle.toString(),
+      // return Text(provider.activeConvexTab.toString(),// bu haliyle calisti!
+      return Text(provider.appTitle,
           style: TextStyle(
               color: Color.fromRGBO(255, 255, 255, .9),
               fontSize: 22.0,
