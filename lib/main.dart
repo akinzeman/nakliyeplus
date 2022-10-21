@@ -473,3 +473,11 @@ class StyledAppTitle extends StatelessWidget {
     });
   }
 }
+
+//todo: later add this to custom lib
+class CustomPageRoute extends MaterialPageRoute {
+  CustomPageRoute({required WidgetBuilder builder}) : super(builder: builder);
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 500);
+}

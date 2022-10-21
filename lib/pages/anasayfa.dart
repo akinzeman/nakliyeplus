@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:animations/animations.dart';
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
 
 import '../variables.dart';
@@ -9,6 +10,8 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:nakliyeplus/main.dart';
 import 'package:nakliyeplus/pages/yuk_gir.dart';
 import 'package:nakliyeplus/pages/yuk_ara.dart';
 import 'package:nakliyeplus/pages/arac_gir.dart';
@@ -42,36 +45,37 @@ class AnaSayfaPage extends StatelessWidget {
                   runSpacing: 20.0,
                   children: <Widget>[
                     // yük gir
-                    GestureDetector(
-                      onTap: () {
-                        // gController.scaleValue.value = 10;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return YukGirPage();
-                            },
-                          ),
-                        );
 
-                        // setState(() {
-                        //   isAnimating = !isAnimating;
-                        // });
+                    // setState(() {
+                    //   isAnimating = !isAnimating;
+                    // });
 
-                        // Get.to(YukGirPage(),
-                        //     // duration: const Duration(
-                        //     //     seconds:
-                        //     //         3), //duration of transitions, default 1 sec
-                        //     transition: Transition.noTransition
-                        //     //  Transition.circularReveal //transition effect
-                        //     );
-                      },
-                      child: SizedBox(
-                        width: 160.0,
-                        height: 160.0,
-                        child: Card(
+                    // Get.to(YukGirPage(),
+                    //     // duration: const Duration(
+                    //     //     seconds:
+                    //     //         3), //duration of transitions, default 1 sec
+                    //     transition: Transition.noTransition
+                    //     //  Transition.circularReveal //transition effect
+                    //     );
+
+                    SizedBox(
+                      width: 160.0,
+                      height: 160.0,
+                      child: OpenContainer(
+                        transitionDuration: const Duration(milliseconds: 500),
+                        closedColor: Colors.transparent,
+                        closedElevation: 12,
+                        closedShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        openColor: Colors.transparent,
+                        openElevation: 0,
+                        transitionType: ContainerTransitionType.fade,
+                        closedBuilder:
+                            (BuildContext context, void Function() action) =>
+                                Card(
                           color: colorPrimaryLight,
-                          elevation: 15.0,
+                          // elevation: 15.0,//OpenContainer yokken aç
                           shape: RoundedRectangleBorder(
                               // side: const BorderSide(
                               //     color: Color.fromARGB(153, 255, 255, 255),
@@ -106,6 +110,9 @@ class AnaSayfaPage extends StatelessWidget {
                             ),
                           )),
                         ),
+                        openBuilder: (BuildContext context,
+                                void Function({Object? returnValue}) action) =>
+                            YukGirPage(),
                       ),
                     ),
 
@@ -119,7 +126,7 @@ class AnaSayfaPage extends StatelessWidget {
                         // });
 
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
+                            CustomPageRoute(builder: (BuildContext context) {
                           return AracGirPage();
                         }));
 
