@@ -45,19 +45,6 @@ class AnaSayfaPage extends StatelessWidget {
                   runSpacing: 20.0,
                   children: <Widget>[
                     // yük gir
-
-                    // setState(() {
-                    //   isAnimating = !isAnimating;
-                    // });
-
-                    // Get.to(YukGirPage(),
-                    //     // duration: const Duration(
-                    //     //     seconds:
-                    //     //         3), //duration of transitions, default 1 sec
-                    //     transition: Transition.noTransition
-                    //     //  Transition.circularReveal //transition effect
-                    //     );
-
                     SizedBox(
                       width: 160.0,
                       height: 160.0,
@@ -117,33 +104,22 @@ class AnaSayfaPage extends StatelessWidget {
                     ),
 
                     // araç gir
-                    GestureDetector(
-                      onTap: () {
-                        // gController.scaleValue.value = 10;
-
-                        // setState(() {
-                        //   isAnimating = !isAnimating;
-                        // });
-
-                        Navigator.push(context,
-                            CustomPageRoute(builder: (BuildContext context) {
-                          return AracGirPage();
-                        }));
-
-                        // Get.to(AracGirPage(),
-                        //     // duration: const Duration(
-                        //     //     seconds:
-                        //     //         3), //duration of transitions, default 1 sec
-                        //     transition: Transition.noTransition
-                        //     //  Transition.circularReveal //transition effect
-                        //     );
-                      },
-                      child: SizedBox(
-                        width: 160.0,
-                        height: 160.0,
-                        child: Card(
+                    SizedBox(
+                      width: 160.0,
+                      height: 160.0,
+                      child: OpenContainer(
+                        transitionDuration: const Duration(milliseconds: 500),
+                        closedColor: Colors.transparent,
+                        closedElevation: 12,
+                        closedShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        openColor: Colors.transparent,
+                        openElevation: 0,
+                        transitionType: ContainerTransitionType.fade,
+                        closedBuilder: (context, action) => Card(
                           color: colorSecondaryLight,
-                          elevation: 15.0,
+                          // elevation: 15.0,
                           shape: RoundedRectangleBorder(
                               // side: const BorderSide(
                               //     color: Color.fromARGB(153, 255, 255, 255),
@@ -178,35 +154,31 @@ class AnaSayfaPage extends StatelessWidget {
                             ),
                           )),
                         ),
+                        openBuilder: (BuildContext context,
+                                void Function({Object? returnValue}) action) =>
+                            AracGirPage(),
                       ),
                     ),
 
                     // yük ara
-                    GestureDetector(
-                      onTap: () {
-                        // gController.scaleValue.value = 10;
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return YukAraPage();
-                        }));
-
-                        // setState(() {
-                        //   isAnimating = !isAnimating;
-                        // });
-                        // Get.to(YukAraPage(),
-                        //     // duration: const Duration(
-                        //     //     seconds:
-                        //     //         3), //duration of transitions, default 1 sec
-                        //     transition: Transition.noTransition
-                        //     //  Transition.circularReveal //transition effect
-                        //     );
-                      },
-                      child: SizedBox(
-                        width: 160.0,
-                        height: 160.0,
-                        child: Card(
+                    SizedBox(
+                      width: 160.0,
+                      height: 160.0,
+                      child: OpenContainer(
+                        transitionDuration: const Duration(milliseconds: 500),
+                        closedColor: Colors.transparent,
+                        closedElevation: 12,
+                        closedShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        openColor: Colors.transparent,
+                        openElevation: 0,
+                        transitionType: ContainerTransitionType.fade,
+                        closedBuilder:
+                            (BuildContext context, void Function() action) =>
+                                Card(
                           color: colorPrimary,
-                          elevation: 15.0,
+                          // elevation: 15.0,
                           shape: RoundedRectangleBorder(
                               // side: const BorderSide(
                               //     color: Color.fromARGB(153, 255, 255, 255),
@@ -243,64 +215,31 @@ class AnaSayfaPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        openBuilder: (BuildContext context,
+                                void Function({Object? returnValue}) action) =>
+                            YukAraPage(),
                       ),
                     ),
 
                     // araç ara
-                    GestureDetector(
-                      onTap: () {
-                        // gController.scaleValue.value = 10;
-
-                        /* original default */
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return AracAraPage();
-                        }));
-
-                        /* fadeTransition */
-                        // Navigator.push(
-                        //   context,
-                        //   PageRouteBuilder(
-                        //     pageBuilder: (_, __, ___) => AracAraPage(),
-                        //     transitionDuration:
-                        //         const Duration(milliseconds: 350),
-                        //     // transitionsBuilder: (_, a, __, c) =>
-                        //     //     FadeTransition(opacity: a, child: c),
-                        //     transitionsBuilder: (_, a, __, c) =>
-                        //         FadeTransition(opacity: a, child: c),
-                        //     // FadeTransition(opacity: a, child: c),
-                        //   ),
-                        // );
-
-                        /* without animation */
-                        // Navigator.push(
-                        //   context,
-                        //   PageRouteBuilder(
-                        //     pageBuilder: (_, __, ___) => AracAraPage(),
-                        //     transitionDuration: const Duration(seconds: 2),
-                        //   ),
-                        // );
-
-                        // setState(() {
-                        //   isAnimating = !isAnimating;
-                        // });
-                        // Get.to(AracAraPage(),
-                        //     // duration: const Duration(
-                        //     //     seconds:
-                        //     //         3), //duration of transitions, default 1 sec
-                        //     transition: Transition.noTransition
-                        //     //  Transition.circularReveal //transition effect
-                        //     );
-                      },
-                      // child: Hero(
-                      //   // transitionOnUserGestures: true,
-                      //   tag: "aracara",
-                      child: SizedBox(
-                        width: 160.0,
-                        height: 160.0,
-                        child: Card(
+                    SizedBox(
+                      width: 160.0,
+                      height: 160.0,
+                      child: OpenContainer(
+                        transitionDuration: const Duration(milliseconds: 500),
+                        closedColor: Colors.transparent,
+                        closedElevation: 12,
+                        closedShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        openColor: Colors.transparent,
+                        // openElevation: 0,
+                        transitionType: ContainerTransitionType.fade,
+                        closedBuilder:
+                            (BuildContext context, void Function() action) =>
+                                Card(
                           color: colorSecondary,
-                          elevation: 15.0,
+                          // elevation: 15.0,
                           shape: RoundedRectangleBorder(
                               // side:
                               // const BorderSide(
@@ -338,8 +277,12 @@ class AnaSayfaPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        openBuilder: (BuildContext context,
+                                void Function({Object? returnValue}) action) =>
+                            AracAraPage(),
                       ),
                     ),
+
                     // ),
 
                     // ElevatedButton(
