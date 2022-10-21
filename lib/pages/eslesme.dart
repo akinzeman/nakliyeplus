@@ -20,14 +20,7 @@ class EslesmePage extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(15),
-        // color: Colors.white10, // colorSecondary,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter, // .topRight,
-            end: Alignment.bottomCenter, //.bottomLeft,
-            colors: colorPageBgr,
-          ),
-        ),
+        decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[

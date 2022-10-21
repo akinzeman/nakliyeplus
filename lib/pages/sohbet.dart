@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'package:nakliyeplus/variables.dart';
 import 'package:flutter/material.dart';
+// import '../main.dart';
 
 class SohbetPage extends StatelessWidget {
   const SohbetPage({super.key});
@@ -10,14 +11,7 @@ class SohbetPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(15),
-        // color: Colors.white10, // colorSecondary,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter, // .topRight,
-            end: Alignment.bottomCenter, //.bottomLeft,
-            colors: colorPageBgr,
-          ),
-        ),
+        decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables

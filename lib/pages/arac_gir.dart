@@ -27,14 +27,7 @@ class AracGirPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        // color: Colors.white10, // colorSecondary,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter, // .topRight,
-            end: Alignment.bottomCenter, //.bottomLeft,
-            colors: colorPageBgr,
-          ),
-        ),
+        decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables

@@ -26,26 +26,22 @@ class AracAraPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        // color: Colors.white10, // colorSecondary,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter, // .topRight,
-            end: Alignment.bottomCenter, //.bottomLeft,
-            colors: colorPageBgr,
+      body: Hero(
+        // transitionOnUserGestures: true,
+        tag: "aracara",
+        child: Container(
+          decoration: putPageBackground(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: <Widget>[
+              Center(
+                  child: Text(
+                "ARAÇ ARA",
+                style: TextStyle(fontSize: 20),
+              ))
+            ],
           ),
-        ),
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // ignore: prefer_const_literals_to_create_immutables
-          children: <Widget>[
-            Center(
-                child: Text(
-              "ARAÇ ARA",
-              style: TextStyle(fontSize: 20),
-            ))
-          ],
         ),
       ),
     );

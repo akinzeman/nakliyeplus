@@ -1,5 +1,9 @@
 // ignore_for_file: file_names, avoid_print, unused_import
 
+import 'dart:math';
+
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
+
 import '../variables.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +15,7 @@ import 'package:nakliyeplus/pages/arac_gir.dart';
 import 'package:nakliyeplus/pages/arac_ara.dart';
 // import 'package:nakliyeplus/main.dart';
 // ignore: use_key_in_widget_constructors
+// import 'package:page_transition/page_transition.dart'; // denendi şimdilik olmadı
 
 class AnaSayfaPage extends StatelessWidget {
   const AnaSayfaPage({super.key});
@@ -21,39 +26,14 @@ class AnaSayfaPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter, // .topRight,
-            end: Alignment.bottomCenter, //.bottomLeft,
-            colors: colorPageBgr,
-            // stops: [0.1, 0.5, 0.7, 0.9],
-
-            // colors: [Colors.purple, Colors.blue],
-            // colors: [
-            //   Colors.indigo[800],
-            //   Colors.indigo[700],
-            //   Colors.indigo[600],
-            //   Colors.indigo[400],
-            // ],
-          ),
-        ),
+        decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Padding(
-            //   padding: EdgeInsets.all(18.0),
-            //   child: Text(
-            //     "Hoşgeldin Murat,",
-            //     style: TextStyle(
-            //       color: Color.fromARGB(255, 39, 39, 39),
-            //       fontSize: 18.0,
-            //       // fontWeight: FontWeight.bold
-            //     ),
-            //     textAlign: TextAlign.start,
-            //   ),
-            // ),
-
+            // Hero(
+            //   tag: "yukgir",
+            //   child: Padding(
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Center(
@@ -65,10 +45,14 @@ class AnaSayfaPage extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         // gController.scaleValue.value = 10;
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return YukGirPage();
-                        }));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return YukGirPage();
+                            },
+                          ),
+                        );
 
                         // setState(() {
                         //   isAnimating = !isAnimating;
@@ -87,9 +71,12 @@ class AnaSayfaPage extends StatelessWidget {
                         height: 160.0,
                         child: Card(
                           color: colorPrimaryLight,
-                          elevation: 12.0,
+                          elevation: 15.0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
+                              // side: const BorderSide(
+                              //     color: Color.fromARGB(153, 255, 255, 255),
+                              //     width: 1),
+                              borderRadius: BorderRadius.circular(18.0)),
                           child: Center(
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -149,9 +136,12 @@ class AnaSayfaPage extends StatelessWidget {
                         height: 160.0,
                         child: Card(
                           color: colorSecondaryLight,
-                          elevation: 12.0,
+                          elevation: 15.0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
+                              // side: const BorderSide(
+                              //     color: Color.fromARGB(153, 255, 255, 255),
+                              //     width: 1),
+                              borderRadius: BorderRadius.circular(18.0)),
                           child: Center(
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -209,9 +199,12 @@ class AnaSayfaPage extends StatelessWidget {
                         height: 160.0,
                         child: Card(
                           color: colorPrimary,
-                          elevation: 12.0,
+                          elevation: 15.0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
+                              // side: const BorderSide(
+                              //     color: Color.fromARGB(153, 255, 255, 255),
+                              //     width: 1),
+                              borderRadius: BorderRadius.circular(18.0)),
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -250,10 +243,36 @@ class AnaSayfaPage extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         // gController.scaleValue.value = 10;
+
+                        /* original default */
                         Navigator.push(context,
                             MaterialPageRoute(builder: (BuildContext context) {
                           return AracAraPage();
                         }));
+
+                        /* fadeTransition */
+                        // Navigator.push(
+                        //   context,
+                        //   PageRouteBuilder(
+                        //     pageBuilder: (_, __, ___) => AracAraPage(),
+                        //     transitionDuration:
+                        //         const Duration(milliseconds: 350),
+                        //     // transitionsBuilder: (_, a, __, c) =>
+                        //     //     FadeTransition(opacity: a, child: c),
+                        //     transitionsBuilder: (_, a, __, c) =>
+                        //         FadeTransition(opacity: a, child: c),
+                        //     // FadeTransition(opacity: a, child: c),
+                        //   ),
+                        // );
+
+                        /* without animation */
+                        // Navigator.push(
+                        //   context,
+                        //   PageRouteBuilder(
+                        //     pageBuilder: (_, __, ___) => AracAraPage(),
+                        //     transitionDuration: const Duration(seconds: 2),
+                        //   ),
+                        // );
 
                         // setState(() {
                         //   isAnimating = !isAnimating;
@@ -266,14 +285,21 @@ class AnaSayfaPage extends StatelessWidget {
                         //     //  Transition.circularReveal //transition effect
                         //     );
                       },
+                      // child: Hero(
+                      //   // transitionOnUserGestures: true,
+                      //   tag: "aracara",
                       child: SizedBox(
                         width: 160.0,
                         height: 160.0,
                         child: Card(
                           color: colorSecondary,
-                          elevation: 12.0,
+                          elevation: 15.0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
+                              // side:
+                              // const BorderSide(
+                              //     color: Color.fromARGB(153, 255, 255, 255),
+                              //     width: 1),
+                              borderRadius: BorderRadius.circular(18.0)),
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -307,6 +333,7 @@ class AnaSayfaPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    // ),
 
                     // ElevatedButton(
                     //   onPressed: () {
@@ -323,10 +350,50 @@ class AnaSayfaPage extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            // )
           ],
         ),
       ),
     );
   }
+}
+
+/* page transition gidis gelis farklı --- dene */
+class EnterExitRoute extends PageRouteBuilder {
+  final Widget enterPage;
+  final Widget exitPage;
+  EnterExitRoute({required this.exitPage, required this.enterPage})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              enterPage,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              Stack(
+            children: <Widget>[
+              SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0.0, 0.0),
+                  end: const Offset(-1.0, 0.0),
+                ).animate(animation),
+                child: exitPage,
+              ),
+              SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1.0, 0.0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: enterPage,
+              )
+            ],
+          ),
+        );
 }

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
-import 'package:flutter/material.dart';
 import 'package:nakliyeplus/variables.dart';
+import 'package:flutter/material.dart';
 
 class YukAraPage extends StatelessWidget {
   @override
@@ -27,14 +27,7 @@ class YukAraPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        // color: Colors.white10, // colorSecondary,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter, // .topRight,
-            end: Alignment.bottomCenter, //.bottomLeft,
-            colors: colorPageBgr,
-          ),
-        ),
+        decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables
