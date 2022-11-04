@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nakliyeplus/main.dart';
-import 'package:nakliyeplus/pages/yuk_gir.dart';
+import 'package:nakliyeplus/pages/yuklerim.dart';
 import 'package:nakliyeplus/pages/yuk_ara.dart';
 import 'package:nakliyeplus/pages/arac_gir.dart';
 import 'package:nakliyeplus/pages/arac_ara.dart';
@@ -44,7 +44,7 @@ class AnaSayfaPage extends StatelessWidget {
                   spacing: 20,
                   runSpacing: 20.0,
                   children: <Widget>[
-                    // yük gir
+                    // yüklerim
                     SizedBox(
                       width: 160.0,
                       height: 160.0,
@@ -84,7 +84,7 @@ class AnaSayfaPage extends StatelessWidget {
                                   height: 25.0,
                                 ),
                                 const Text(
-                                  "YÜK GİR",
+                                  "YÜKLERİM",
                                   style: TextStyle(
                                       color: Color.fromRGBO(255, 255, 255, 1),
                                       fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class AnaSayfaPage extends StatelessWidget {
                         ),
                         openBuilder: (BuildContext context,
                                 void Function({Object? returnValue}) action) =>
-                            YukGirPage(),
+                            YuklerimPage(),
                       ),
                     ),
 

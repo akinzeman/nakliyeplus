@@ -3,6 +3,8 @@
 /* import global variables from variables.dart */
 // import 'dart:html';
 
+import 'dart:async'; // Timer, await fonksiyonu için gerekli
+
 import 'variables.dart';
 
 import 'package:provider/provider.dart';
@@ -26,20 +28,20 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import "package:url_launcher/url_launcher.dart";
 import 'package:flutter_share/flutter_share.dart'; //native share
 // import 'package:page_transition/page_transition.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 /* system related packages */
 // import 'package:flutter/services.dart'; // bottom navbar, top status bar related etc
 
 /* debug amaçlı paketler */
-import 'package:flutter/scheduler.dart'
-    show timeDilation; // timeDilation=5;// animasyon hızı
+// import 'package:flutter/scheduler.dart'  show timeDilation; // timeDilation=5;// animasyon hızı
 // import 'package:flutter/rendering.dart'; // debugPaintSizeEnabled = true;
 
 // void main() => runApp(Provider<AppController>(
 //     // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
 //     create: (BuildContext, context) => AppController(), child: MyApp()));
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /* alttaki android navigationı ve üstteki appbarı kaldırmak için
@@ -56,8 +58,16 @@ void main() {
 
   // var removeSplashTimer = Timer(const Duration(seconds: 7), () => FlutterNativeSplash.remove());  // bu satır eğer flutter_native_splash: ^2.2.10+1  dependencies de ise gecerli, dev_dependencies de ise otomatik
 
-  timeDilation =
-      1.0; // animasyon hızı // import 'package:flutter/scheduler.dart';
+  // timeDilation =  1.0; // animasyon hızı // import 'package:flutter/scheduler.dart';
+
+  // // var removeSplashTimer =
+  // Timer(
+  //     const Duration(milliseconds: 3000), () => {FlutterNativeSplash.remove()});
+
+  await Future.delayed(const Duration(seconds: 2));
+  FlutterNativeSplash
+      .remove(); // todo: burayı kaldır.. https://pub.dev/packages/flutter_native_splash/example
+
   runApp(ChangeNotifierProvider<AppController>(
     create: (context) => AppController(),
     child: MyApp(),
@@ -270,6 +280,7 @@ class DrawerWidget extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 // toggleDrawer(scaffoldKey);
+                Navigator.pop(context);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (BuildContext context) {
                   return ProfilePage();
