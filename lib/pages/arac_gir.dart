@@ -27,16 +27,37 @@ class AracGirPage extends StatelessWidget {
         ),
       ),
       body: Container(
+        // width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[
-            Center(
-                child: Text(
-              "ARAÇ GİR",
-              style: TextStyle(fontSize: 20),
-            ))
+            Text(
+              "Araçlarınızın pozisyonu\n(Ne zaman ve nerede boş olduğunu)\nsürekli güncel tutunuz.",
+              style: TextStyle(fontSize: 18),
+            ),
+            // SizedBox(height: 50),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     //full width button
+            //     // minimumSize: const Size.fromHeight(50),
+            //     fixedSize: const Size.fromHeight(50),
+            //     maximumSize: Size(340, 100),
+
+            //     padding: EdgeInsets.symmetric(horizontal: 35.0, vertical: 15.0),
+            //     backgroundColor: colorSecondary,
+            //     // shape: RoundedRectangleBorder(
+            //     //     borderRadius: BorderRadius.circular(50.0)),
+            //     shape: StadiumBorder(),
+            //   ),
+            //   child: Text(
+            //     "KAYDET",
+            //     style: TextStyle(color: Colors.white, fontSize: 18),
+            //   ),
+            // ),
           ],
         ),
       ),

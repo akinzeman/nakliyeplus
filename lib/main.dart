@@ -5,6 +5,7 @@
 
 import 'dart:async'; // Timer, await fonksiyonu için gerekli
 
+import 'custom_widgets.dart';
 import 'variables.dart';
 
 import 'package:provider/provider.dart';
@@ -15,7 +16,8 @@ import 'pages/eslesme.dart';
 import 'pages/ilanlar.dart';
 import 'pages/sohbet.dart';
 import 'pages/fihrist.dart';
-import 'pages/profile.dart'; // import 'package:nakliyeplus/pages/profile.dart';
+// import 'package:nakliyeplus/pages/profile.dart';
+import 'pages/drawer_page.dart'; // import 'package:nakliyeplus/pages/profile.dart';
 
 // import 'dart:html';
 
@@ -25,8 +27,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 // import 'package:animations/animations.dart';
 // import 'package:flutter/cupertino.dart'; // importa gerek yok denildi
 
-import "package:url_launcher/url_launcher.dart";
-import 'package:flutter_share/flutter_share.dart'; //native share
+//native share
 // import 'package:page_transition/page_transition.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -64,7 +65,7 @@ Future<void> main() async {
   // Timer(
   //     const Duration(milliseconds: 3000), () => {FlutterNativeSplash.remove()});
 
-  await Future.delayed(const Duration(seconds: 2));
+  await Future.delayed(const Duration(milliseconds: 1500));
   FlutterNativeSplash
       .remove(); // todo: burayı kaldır.. https://pub.dev/packages/flutter_native_splash/example
 
@@ -103,6 +104,7 @@ class MyApp extends StatelessWidget {
       FihristPage()
       // ProfilePage()
     ];
+    /* route yapıldıktan sonra appbardaki title isimleri */
     final sayfaBasliklari = [
       "EŞLEŞME",
       "İLANLAR",
@@ -112,6 +114,15 @@ class MyApp extends StatelessWidget {
     ];
     final scaffoldKey = GlobalKey<ScaffoldState>(); // drawer icin gerekli
     return MaterialApp(
+      /* tip: devicetan bağımsız text sizeları sabit tutmak için */
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child!,
+        );
+      },
+//
+
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: scaffoldKey,
@@ -252,196 +263,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    const koseYuvarligi = 30.0;
-    // final scaffoldKey = GlobalKey<ScaffoldState>();
-
-    return Drawer(
-      width: 280,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(koseYuvarligi),
-            bottomRight: Radius.circular(koseYuvarligi)),
-      ),
-      child: Flex(
-          direction: Axis.vertical, // this is unique
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          verticalDirection: VerticalDirection.down,
-          children: <Widget>[
-            // en üst profil containerı
-            GestureDetector(
-              onTap: () {
-                // toggleDrawer(scaffoldKey);
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  return ProfilePage();
-                }));
-              },
-              child: Container(
-                width: double.infinity,
-                height: 200,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(koseYuvarligi),
-                    ),
-                    color: colorSecondary), //Color.fromARGB(106, 255, 193, 7)),
-                child: SizedBox(
-                  width: 80.0,
-                  height: 80.0,
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(
-                          height: 40.0,
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(60.0),
-                          child: Image.asset(
-                            "assets/images/profile.jpg",
-                            width: 100.0,
-                            height: 100.0,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        const Text(
-                          "V.Murat Çelik",
-                          style: TextStyle(
-                              color: Color.fromRGBO(255, 255, 255, 0.9),
-                              // fontWeight: FontWeight.bold,
-                              fontSize: 18.0),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              // orta maddelerin oldugu kolon
-              child: Container(
-                color: Color.fromARGB(
-                    255, 213, 236, 255), // Color.fromRGBO(255, 193, 7, 0.596),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    ListTile(
-                      horizontalTitleGap: 5, // tip:trailerdan sonraki padding
-                      leading: Icon(Icons.person_outline),
-                      // leading: Icon(Icons.account_box),
-                      title: Text("Profil"),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return ProfilePage();
-                        }));
-                      },
-                    ),
-                    Divider(),
-                    ListTile(
-                      horizontalTitleGap: 5, // tip:trailerdan sonraki padding
-                      leading: Icon(Icons.ios_share),
-                      title: Text("Paylaş"),
-                      onTap: () {
-                        FlutterShare.share(
-                            title: "Nakliye Uygulaması",
-                            text: "Artık yük ve araç bulmak çok kolay",
-                            linkUrl: "https://NakliyePlus.com");
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Center(
-              // en alt sub grup
-              child: Container(
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(koseYuvarligi)),
-                      color: Color.fromARGB(255, 213, 236, 255)),
-                  child: Column(children: [
-                    ListTile(
-                      horizontalTitleGap: 5, // tip:trailerdan sonraki padding
-                      leading: Icon(Icons.phone_android_outlined),
-                      title: Text(
-                        "+90 532 2239650",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.blue),
-                      ),
-                      onTap: () => launchUrl(Uri.parse('tel:05322239650')),
-                    ),
-                    ListTile(
-                      dense: true, // tip: sığdırmak için
-                      // minLeadingWidth: X,
-                      horizontalTitleGap: 5, // tip:trailerdan sonraki padding
-                      // contentPadding: EdgeInsets.all(0), // tüm tile'ın paddingi, Trailerden öncesi gibi..
-
-                      leading: Icon(Icons.email_outlined),
-                      title: Text(
-                        "iletisim@NakliyePlus.com",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.blue),
-                      ),
-                      // subtitle: Text("+90 532 2239650"),
-                      onTap: () => launchUrl(
-                          Uri.parse('mailto:iletisim@nakliyeplus.com')),
-                    ),
-                    // InkWell(
-                    //   onTap: () => launchUrl(Uri.parse('tel:05322239650')),
-                    //   child: Text(
-                    //     '+90 532 2239650',
-                    //     style: TextStyle(
-                    //         decoration: TextDecoration.underline,
-                    //         color: Colors.blue),
-                    //   ),
-                    // ),
-                    // InkWell(
-                    //   onTap: () => launchUrl(
-                    //       Uri.parse('mailto:iletisim@nakliyeplus.com')),
-                    //   child: Text(
-                    //     'iletisim@NakliyePlus.com',
-                    //     style: TextStyle(
-                    //         decoration: TextDecoration.underline,
-                    //         color: Colors.blue),
-                    //   ),
-                    // ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Text(
-                      "©2023 NakliyePlus",
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 117, 117, 117)),
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                  ])),
-            )
-          ]),
-    );
-  }
-}
-
 //// https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple
 // return Consumer<AppController>(
 //   builder: (context, cart, child) {
@@ -464,26 +285,6 @@ class DrawerWidget extends StatelessWidget {
 //             fontWeight: FontWeight.bold));
 //   }
 // }
-
-/* consumer ile */
-class StyledAppTitle extends StatelessWidget {
-  const StyledAppTitle({super.key});
-  // final ttt = Provider.of<AppController>(context, listen: false).appTitle;
-  // final xxx = (context.watch<AppController>().appTitle).toString()
-  @override
-  Widget build(BuildContext context) {
-    // print(context.watch<AppController>().appTitle);
-    // return Text(appTitle,
-    return Consumer<AppController>(builder: (context, provider, child) {
-      // return Text(provider.activeConvexTab.toString(),// bu haliyle calisti!
-      return Text(provider.appTitle,
-          style: TextStyle(
-              color: Color.fromRGBO(255, 255, 255, .9),
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold));
-    });
-  }
-}
 
 //todo: later add this to custom lib
 class CustomPageRoute extends MaterialPageRoute {

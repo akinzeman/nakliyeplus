@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:nakliyeplus/main.dart';
 import 'package:nakliyeplus/pages/yuklerim.dart';
 import 'package:nakliyeplus/pages/yuk_ara.dart';
-import 'package:nakliyeplus/pages/arac_gir.dart';
+import 'package:nakliyeplus/pages/araclarim.dart';
 import 'package:nakliyeplus/pages/arac_ara.dart';
 // import 'package:nakliyeplus/main.dart';
 // ignore: use_key_in_widget_constructors
@@ -29,14 +29,20 @@ class AnaSayfaPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
+        // margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        // margin: const EdgeInsets.only(top: 20.0),
+
+        //content appbarın altına alındıgı için gerekti
+        padding: const EdgeInsets.only(top: 60.0),
+
         decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Hero(
-            //   tag: "yukgir",
-            //   child: Padding(
+            // const SizedBox(
+            //   height: 10.0,
+            // ),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Center(
@@ -141,7 +147,7 @@ class AnaSayfaPage extends StatelessWidget {
                                   height: 25.0,
                                 ),
                                 const Text(
-                                  "ARAÇ GİR",
+                                  "ARAÇLARIM",
                                   style: TextStyle(
                                       color: Color.fromRGBO(255, 255, 255, 0.8),
                                       fontWeight: FontWeight.bold,
@@ -156,7 +162,7 @@ class AnaSayfaPage extends StatelessWidget {
                         ),
                         openBuilder: (BuildContext context,
                                 void Function({Object? returnValue}) action) =>
-                            AracGirPage(),
+                            AraclarimPage(),
                       ),
                     ),
 

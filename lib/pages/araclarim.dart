@@ -1,24 +1,25 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:animations/animations.dart';
-import 'package:flutter/material.dart';
-import 'package:nakliyeplus/pages/yuk_gir.dart';
 import 'package:nakliyeplus/variables.dart';
+import 'package:flutter/material.dart';
 
-class YuklerimPage extends StatelessWidget {
+import 'arac_gir.dart';
+
+class AraclarimPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("YÜKLERİM"),
+        title: Text("ARAÇLARIM"),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 30.0,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: const [colorPrimary, colorPrimaryLight],
+              colors: const [colorSecondary, colorSecondaryLight],
               // colors: [colorSecondary, colorSecondaryLight],
             ),
             borderRadius: BorderRadius.only(
@@ -28,45 +29,25 @@ class YuklerimPage extends StatelessWidget {
           ),
         ),
       ),
-      // body: Hero(
-      //   tag: "yukgir",
-      //   child: Container(
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        // color: Colors.red,
         decoration: putPageBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[
-            // SizedBox(height: 200),
-            Text(
-              "Kayıtlı yükünüz bulunmamaktadır.",
+            Center(
+                child: Text(
+              "Eklenmiş bir aracınız bulunmamaktadır.",
               style: TextStyle(fontSize: 18),
-            )
+            ))
           ],
         ),
       ),
-      // ),
-
-      // floatingActionButton: FloatingActionButton.extended(
-      //   heroTag: 'fab1',
-      //   backgroundColor: colorPrimary,
-      //   label: Row(
-      //     children: const [Icon(Icons.add), Text('Yük Gir')],
-      //   ),
-      //   onPressed: () {
-      //     Navigator.push(context,
-      //         MaterialPageRoute(builder: (BuildContext context) {
-      //       return YukGirPage();
-      //     }));
-      //   },
-      // ),
 
       /* OpenContainer en doğrusu burada */
       floatingActionButton: OpenContainer(
         closedColor:
-            colorPrimary, //tip: fab backgroundColor'ın rengi neyse onu ver
+            colorSecondary, //tip: fab backgroundColor'ın rengi neyse onu ver
         // openColor: Colors.blue,
         closedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -77,15 +58,15 @@ class YuklerimPage extends StatelessWidget {
         closedBuilder: (context, _) {
           return FloatingActionButton.extended(
             // heroTag: 'fab1',
-            backgroundColor: colorPrimary,
+            backgroundColor: colorSecondary,
             elevation: 0,
             label: Row(
-              children: const [Icon(Icons.add), Text('YÜK GİR')],
+              children: const [Icon(Icons.add), Text('ARAÇ GİR')],
             ),
             onPressed: null, //openBuilder'e bulb olması için null yap!!
           );
         },
-        openBuilder: (context, _) => YukGirPage(),
+        openBuilder: (context, _) => AracGirPage(),
         // openBuilder: (BuildContext c, VoidCallback action) => YukGirPage(),
       ),
     );
